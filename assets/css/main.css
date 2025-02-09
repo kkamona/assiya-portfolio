@@ -3218,4 +3218,14 @@ input, select, textarea {
 				padding-left: 0;
 			}
 
+		#footer {
+    position: relative !important;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background: #fff; /* Ensure visibility */
+    padding: 20px;
+}
+
 	}
+
