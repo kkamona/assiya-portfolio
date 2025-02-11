@@ -13,6 +13,7 @@
         <div class="inner">
             <a href="index.html" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
             <h1><strong>Housing Price Prediction</strong></h1>
+            <a href="index.html" class="button" style="margin-top: 20px; display: inline-block;">⬅ Back to Portfolio</a>
         </div>
     </header>
 
@@ -20,7 +21,10 @@
     <div id="main">
         <section id="one">
             <h2>Project Overview</h2>
-            <p>This project uses a linear regression model to predict housing prices based on various property features. Feature selection is performed using Recursive Feature Elimination (RFE) to optimize model performance.</p>
+            <p>This project focuses on predicting housing prices using a linear regression model. 
+                The dataset includes various housing attributes, which are preprocessed by encoding categorical variables and mapping binary features to numerical values.
+                Recursive Feature Elimination (RFE) is applied to select the 13 most significant predictors. The model is trained on an 88% training set and evaluated using the R² score on a 12% test set. Visualizations include a bar plot showing feature importance and a scatter plot comparing actual vs. predicted prices. 
+                The project demonstrates a structured approach to housing price estimation with feature selection and interpretability.</p>
         </section>
 
         <section id="two">
@@ -62,22 +66,40 @@ repr.fit(X_train[chosen_features], y_train)
 
 estimated_label = repr.predict(X_test[chosen_features])
 
+
+from sklearn.metrics import r2_score 
 accuracy=r2_score(ground_truth, estimated_label)
 print(f'Accuracy: {accuracy * 100:.2f}%')
+
+plt.figure(figsize=(10, 5))
+sns.barplot(x=chosen_features, y=repr.coef_)
+plt.xticks(rotation=45)
+plt.xlabel("Selected Features")
+plt.ylabel("Regression Coefficients")
+plt.title("Feature Importance in Linear Regression Model")
+plt.show()
+
+plt.figure(figsize=(8, 6))
+sns.scatterplot(x=ground_truth, y=estimated_label, alpha=0.7)
+plt.plot([min(ground_truth), max(ground_truth)], [min(ground_truth), max(ground_truth)], color='red', linestyle='--')  # 45-degree reference line
+plt.xlabel("Actual Prices")
+plt.ylabel("Predicted Prices")
+plt.title("Actual vs. Predicted Housing Prices")
+plt.show()
                 </code>
             </pre>
         </section>
 
         <section id="three">
             <h2>Skills Demonstrated</h2>
-            <ul>
-                <li>Data preprocessing and feature engineering</li>
-                <li>Machine learning model development</li>
-                <li>Feature selection using Recursive Feature Elimination (RFE)</li>
-                <li>Linear regression analysis</li>
-                <li>Data visualization with Matplotlib and Seaborn</li>
-                <li>Model evaluation using R-squared score</li>
-            </ul>
+    <ul>
+        <li>Data preprocessing by encoding categorical variables and mapping binary features to numbers.</li>
+        <li>Feature selection using Recursive Feature Elimination (RFE) to find the most important predictors.</li>
+        <li>Building and training a Linear Regression model to predict housing prices.</li>
+        <li>Evaluating model performance using the R² score.</li>
+        <li>Visualizing data with bar plots for feature importance and scatter plots for actual vs. predicted prices.</li>
+        <li>Using Python libraries such as NumPy, Pandas, Matplotlib, Seaborn, and Scikit-Learn for data analysis and machine learning.</li>
+    </ul>
         </section>
     </div>
 
