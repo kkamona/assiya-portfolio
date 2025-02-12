@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Project Template</title>
+    <title>Air Quality Prediction</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
@@ -12,7 +12,8 @@
     <header id="header">
         <div class="inner">
             <a href="index.html" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
-            <h1><strong>Project Title</strong></h1>
+            <h1><strong>Air Quality Prediction</strong></h1>
+            <a href="index.html" class="button" style="margin-top: 20px; display: inline-block;">⬅ Back to Portfolio</a>
         </div>
     </header>
 
@@ -20,34 +21,79 @@
     <div id="main">
         <section id="one">
             <h2>Project Overview</h2>
-            <p>[Placeholder for project description]</p>
+            <p>This project predicts air quality in Almaty using Bayesian methods. 
+                It fetches real-time air pollution data using the OpenWeatherMap API and analyzes historical trends. 
+                Bayesian inference is applied to predict the likelihood of good or poor air quality for the next day. 
+                The project includes visualizations such as air quality trends, frequency distributions, and prediction probability pie charts.</p>
         </section>
 
         <section id="two">
-            <h2>Gallery</h2>
-            <img src="images/screenshots/screenshot1.jpg" alt="Screenshot 1" class="image fit" />
-            <img src="images/screenshots/screenshot2.jpg" alt="Screenshot 2" class="image fit" />
-            <img src="images/screenshots/screenshot3.jpg" alt="Screenshot 3" class="image fit" />
+            <h2>Visuals</h2>
+            <p>Below are some visual representations of air quality trends and predictions:</p>
+            <img src="images/air_quality_trends.jpg" alt="Air Quality Trends" width="100%" />
+            <img src="images/air_quality_pie.jpg" alt="Predicted Air Quality" width="100%" />
         </section>
 
         <section id="three">
-            <h2>Video Demonstration</h2>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/PLACEHOLDER_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+            <h2>Code Implementation</h2>
+            <pre>
+                <code class="language-python">
+import json
+import requests
+import matplotlib.pyplot as plt
+import numpy as np
+
+API_KEY = "YOUR_API_KEY"
+CITY = "Almaty"
+URL = f"http://api.openweathermap.org/data/2.5/air_pollution?lat=43.2567&lon=76.9286&appid={API_KEY}"
+
+def fetch_air_quality():
+    response = requests.get(URL)
+    data = response.json()
+    if "list" in data and len(data["list"]) > 0:
+        pm25 = data["list"][0]["components"]["pm2_5"]
+        pm10 = data["list"][0]["components"]["pm10"]
+        return pm25, pm10
+    return None, None
+
+def calculate_prior(data):
+    if not data:
+        return [0.5, 0.5]
+    good_count = data.count(0)
+    poor_count = data.count(1)
+    total = len(data)
+    return [good_count / total, poor_count / total]
+
+# Load and process historical data
+data = []  # Replace with actual loading mechanism
+pm25, pm10 = fetch_air_quality()
+today_pollution = 1 if (pm25 and pm25 > 35) or (pm10 and pm10 > 50) else 0
+data.append(today_pollution)
+
+# Compute probabilities
+prior = calculate_prior(data)
+
+# Visualization
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+axes[0].plot(range(len(data)), data, marker='o', linestyle='-', label='Air Quality Trend')
+axes[0].set_title("Historical Air Quality")
+
+axes[1].pie(prior, labels=["Good", "Poor"], autopct="%.1f%%", colors=['green', 'red'])
+axes[1].set_title("Predicted Air Quality")
+
+plt.show()
+                </code>
+            </pre>
         </section>
 
         <section id="four">
-            <h2>Technologies Used</h2>
+            <h2>Skills Demonstrated</h2>
             <ul>
-                <li>[Placeholder Technology 1]</li>
-                <li>[Placeholder Technology 2]</li>
-                <li>[Placeholder Technology 3]</li>
+                <li>Fetching real-time air pollution data using an API.</li>
+                <li>Applying Bayesian inference for probabilistic air quality prediction.</li>
+                <li>Visualizing historical air quality trends and prediction probabilities.</li>
+                <li>Using Python libraries such as Requests, Matplotlib, and NumPy for data processing and visualization.</li>
             </ul>
-        </section>
-
-        <section id="five">
-            <h2>Project Repository</h2>
-            <p>Check out the project on GitHub:</p>
-            <a href="https://github.com/PLACEHOLDER_REPO" class="button">View on GitHub</a>
         </section>
     </div>
 
