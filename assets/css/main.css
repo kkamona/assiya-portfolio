@@ -3219,4 +3219,14 @@ input, select, textarea {
 			}
 
 	}
+.icons {
+    margin-top: 2cm; /* Creates the required space */
+    text-align: center; /* Centers the icons */
+}
+
+.icons li {
+    display: inline-block;
+    margin: 0 10px; /* Adds space between icons */
+}
+
 
