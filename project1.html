@@ -1,6 +1,10 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+        <!-- highlight.js for syntax highlighting -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
     <title>Air Quality Prediction</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -33,10 +37,11 @@
             <img src="images/air_quality_trends.jpg" alt="Air Quality Trends" width="100%" />
         </section>
 
-        <section id="three">
-            <h2>Code Implementation</h2>
-            <pre>
-                <code class="language-python">
+
+           <section id="three">
+    <h2>Code Implementation</h2>
+    <pre>
+        <code class="language-python">
 import json
 import requests
 import matplotlib.pyplot as plt
